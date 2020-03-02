@@ -34,6 +34,11 @@ function request() {
 // 3. redirect \Symfony\Component\HttpFoundation\Response
 function redirect($path, $extra = []) {
     $response = \Symfony\Component\HttpFoundation\Response::create(null, \Symfony\Component\HttpFoundation\Response::HTTP_FOUND, ['Location' => $path]);
+    if (key_exists('cookies', $extra)) {
+        $response->headers->setCookie($extra);
+        // in lesson, there was more than 1 cookie & video used a for each
+    }
+
     $response->send();
     exit;
 }
