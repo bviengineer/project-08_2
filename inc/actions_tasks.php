@@ -17,6 +17,7 @@ case "add":
         $session->getFlashBag()->add('error', 'Please enter a task');
     } else {
         if (createTask(['task'=>$task, 'status'=>$status])) {
+            assignUserNewTasks(); // assigns all new tasks to logged in user 
             $session->getFlashBag()->add('success', 'New Task Added');
         }
     }
