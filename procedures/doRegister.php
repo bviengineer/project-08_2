@@ -31,4 +31,4 @@ saveUserData($user);
 $session->getFlashBag()->add('success', "Account Created");
 
 // Redirect user to the home page after creating user 
-redirect('/');
+// redirect('/');

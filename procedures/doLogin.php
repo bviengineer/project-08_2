@@ -15,4 +15,4 @@ if (!password_verify(request()->get('password'), $user['password'])) {
 }
 
 saveUserData($user);
-redirect('/');
+// redirect('/');
