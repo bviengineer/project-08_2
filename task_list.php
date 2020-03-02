@@ -7,7 +7,8 @@ $page = "tasks";
 
 $filter = request()->get('filter');
 if ($filter=='all') {
-    $tasks = getTasks();
+    // $tasks = getTasks();
+    $tasks = displayAllUserTasks();
 } elseif ($filter=='complete') {
     $tasks = getCompleteTasks();
 } else {
