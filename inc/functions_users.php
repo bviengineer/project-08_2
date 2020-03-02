@@ -90,3 +90,22 @@ function displayAllUserTasks() {
        return $results;
     }
 }
+// Display completed tasks assiged to logged in user
+function displayCompletedlUserTasks() {
+    global $db;
+
+    if (isAuthenticated()) {
+        $id = getAuthenticatedUser();
+        $user = findUserByuserId($id);        
+      
+        try {
+            $query = $db->prepare('SELECT * FROM tasks WHERE user_id = :userId AND status = "1" ');
+            $query->bindParam(':userId', $user['id']);
+            $query->execute();
+            $results = $query->fetchAll(PDO::FETCH_ASSOC);
+        } catch (\Exception $e) {
+            return false;
+        }
+       return $results;
+    }
+}
