@@ -54,3 +54,19 @@ function updatePassword($password, $userId) {
     }
     return true;
 }
+// Assign new task(s) to logged in user
+function assignUserNewTasks() {
+    global $db;
+
+    if (isAuthenticated()) {
+        $user = findUserByuserId(); 
+
+        try {
+            $query = $db->prepare('UPDATE tasks SET user_id = :userId WHERE user_id IS NULL');
+            $query->bindParam(':userId', $user['id']);
+            $query->execute();
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+}
