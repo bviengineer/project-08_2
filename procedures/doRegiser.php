@@ -17,3 +17,15 @@ if (!empty($user)) {
     $session->getFlashBag()->add('error', 'Username already in use. Please try again.');
     redirect('/register.php');
 }
+
+// Hashing of user password if an existing user is not found 
+$hashedPwd = password_hash($password, PASSWORD_DEFAULT);
+
+// Adds new user to database if password & username verification steps are successful
+$user = createNewUser($username, $hashedPwd);
+
+// Registration success and logged in confirmation message
+$session->getFlashBag()->add('success', "Account Created!");
+
+// Redirect user to the home page after creating user 
+redirect('/');
