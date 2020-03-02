@@ -1,8 +1,9 @@
 <?php
 // Verifies whether a user is authenticated 
 function isAuthenticated() {
-    global $session;
-    return $session->get('auth_logged_in', false);
+    // global $session;
+    // return $session->get('auth_logged_in', false);
+    return decodeAuthCookie('auth_logged_in');
 }
 
 // Require a user to authenticate in order to use certain resources
@@ -14,6 +15,7 @@ function requireAuth() {
         redirect("/login.php");
     }
 }
+// Returns the logged in user
 function getAuthenticatedUser() {
     global $session;
     return findUserByUserId($session->get('auth_user_id'));
@@ -35,6 +37,7 @@ function saveUserData($user) {
     // );
     redirect('/', ['cookies' => [$cookie] ]);
 }
+// Setting of cookie
 function setAuthCookie($data, $expTime) {
     $cookie = new Symfony\Component\HttpFoundation\Cookie(
         'auth', 
@@ -47,6 +50,7 @@ function setAuthCookie($data, $expTime) {
     );
     return $cookie;
 }
+// Decoding of cookie
 function decodeAuthCookie($prop = null) {
     $cookie = json_decode(request()->cookies->get('auth'));
     if ($prop === null) {
