@@ -26,3 +26,17 @@ function createNewUser($username, $password) {
         throw $e;
     }
 }
+// Find a user by username
+function findUserByUserId($id) {
+    global $db;
+
+    try {
+        $query = $db->prepare('SELECT * from users where id = :id');
+        $query->bindParam(':id', $id);
+        $query->execute();
+        $result = $query->fetch(PDO::FETCH_ASSOC);
+        return $result;
+    } catch (\Exception $e) {
+        throw $e;
+    }
+}
