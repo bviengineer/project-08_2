@@ -71,3 +71,22 @@ function assignUserNewTasks() {
         }
     }
 }
+// Display completed and incompleted tasks assiged to logged in user
+function displayAllUserTasks() {
+    global $db;
+
+    if (isAuthenticated()) {
+        $id = getAuthenticatedUser();
+        $user = findUserByuserId($id);        
+      
+        try {
+            $query = $db->prepare('SELECT * FROM tasks WHERE user_id = :userId');
+            $query->bindParam(':userId', $user['id']);
+            $query->execute();
+            $results = $query->fetchAll(PDO::FETCH_ASSOC);
+        } catch (\Exception $e) {
+            return false;
+        }
+       return $results;
+    }
+}
