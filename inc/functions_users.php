@@ -59,7 +59,8 @@ function assignUserNewTasks() {
     global $db;
 
     if (isAuthenticated()) {
-        $user = findUserByuserId(); 
+        $id = getAuthenticatedUser();
+        $user = findUserByuserId($id); 
 
         try {
             $query = $db->prepare('UPDATE tasks SET user_id = :userId WHERE user_id IS NULL');
