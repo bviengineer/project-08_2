@@ -13,3 +13,16 @@ function findUserByUsername($username) {
         throw $e;
     }
 }
+// Create a new user account
+function createNewUser($username, $password) {
+    global $db;
+    try {
+        $query = $db->prepare('INSERT INTO users (username, password) VALUES (:username, :password)' );
+        $query->bindParam(':username', $username);
+        $query->bindParam(':password', $password);
+        $query->execute();
+        return findUserByUsername($username);
+    } catch (\Exception $e) {
+        throw $e;
+    }
+}
