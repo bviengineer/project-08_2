@@ -1,9 +1,9 @@
 <?php
-require_once __DIR__ . '/../inc/bootstrap.php';
+require_once __DIR__.'/../inc/bootstrap.php';
 
-$username->get('username');
-$password->get('password');
-$confirmedPwd->get('confirm_password');
+$username = request()->get('username');
+$password = request()->get('password');
+$confirmedPwd = request()->get('confirm_password');
 
 // Verifies whether passwords match
 if ($password != $confirmedPwd) {
@@ -11,15 +11,15 @@ if ($password != $confirmedPwd) {
     redirect('/register.php');
 }
 
+// Hashing of user password if an existing user is not found 
+$hashedPwd = password_hash($password, PASSWORD_DEFAULT);
+
 // Verifies whether a user already exists with that username, redirects if there is 
 $user = findUserByUsername($username);
 if (!empty($user)) {
     $session->getFlashBag()->add('error', 'Username already in use. Please try again.');
     redirect('/register.php');
 }
-
-// Hashing of user password if an existing user is not found 
-$hashedPwd = password_hash($password, PASSWORD_DEFAULT);
 
 // Adds new user to database if password & username verification steps are successful
 $user = createNewUser($username, $hashedPwd);
