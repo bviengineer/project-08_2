@@ -17,8 +17,9 @@ function requireAuth() {
 }
 // Returns the logged in user
 function getAuthenticatedUser() {
-    global $session;
-    return findUserByUserId($session->get('auth_user_id'));
+    // global $session;
+    // return findUserByUserId($session->get('auth_user_id'));
+    return findUserByUserId(decodeAuthCookie('auth_user_id'));
 }
 
 // Save user session data
