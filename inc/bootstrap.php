@@ -4,6 +4,10 @@ require_once __DIR__ . '/functions_tasks.php';
 require_once __DIR__ . '/functions_users.php';
 require_once __DIR__ . '/functions_auth.php';
 
+// Indicate to system where to locate .env file
+$dotenv = Dotenv\Dotenv::create(__DIR__);
+$dotenv->load();
+
 try {
     $db = new PDO("sqlite:".__DIR__."/todo.db");
     $db->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
