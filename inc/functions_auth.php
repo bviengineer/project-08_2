@@ -3,7 +3,7 @@
 function isAuthenticated() {
     // global $session;
     // return $session->get('auth_logged_in', false);
-    return decodeAuthCookie('auth_logged_in');
+    return decodeAuthCookie();
 }
 
 // Require a user to authenticate in order to use certain resources
