@@ -14,7 +14,8 @@ if ($filter=='all') {
     $tasks = displayCompletedlUserTasks();
 } else {
     $filter = 'incomplete';
-    $tasks = getIncompleteTasks();
+    // $tasks = getIncompleteTasks();
+    $tasks = displayIncompletelUserTasks();
 }
 
 include 'inc/header.php';
