@@ -40,3 +40,17 @@ function findUserByUserId($id) {
         throw $e;
     }
 }
+// Update a user's password
+function updatePassword($password, $userId) {
+    global $db;
+
+    try {
+        $query = $db->prepare('UPDATE users SET password = :password WHERE username = :userId');
+        $query->bindParam(':password', $password);
+        $query->bindParam(':userId', $userId);
+        $query->execute();
+    } catch (\Exception $e) {
+        return false;
+    }
+    return true;
+}
