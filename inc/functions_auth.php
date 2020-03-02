@@ -5,6 +5,17 @@ function isAuthenticated() {
     return $session->get('auth_logged_in', false);
 }
 
+// Require a user to authenticate in order to use certain resources
+function requireAuth() {
+    global $session;
+    if (!isAuthenticated()) {
+        global $session;
+        $session->getFlashBag()->add('error', 'You must be logged in to access this resource');
+        redirect("/login.php");
+    }
+}
+
+// Save user session data
 function saveUserData($user) {
     global $session;
     $session->set('auth_logged_in', true);
