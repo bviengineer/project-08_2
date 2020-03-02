@@ -10,7 +10,8 @@ if ($filter=='all') {
     // $tasks = getTasks();
     $tasks = displayAllUserTasks();
 } elseif ($filter=='complete') {
-    $tasks = getCompleteTasks();
+    // $tasks = getCompleteTasks();
+    $tasks = displayCompletedlUserTasks();
 } else {
     $filter = 'incomplete';
     $tasks = getIncompleteTasks();
