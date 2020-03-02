@@ -1,4 +1,5 @@
 <?php
+require __DIR__.'/../inc/bootstrap.php';
 requireAuth();
 
 $currentPwd = request()->get('current_password');
