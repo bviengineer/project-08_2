@@ -7,7 +7,7 @@ function isAuthenticated() {
 
 // Require a user to authenticate in order to use certain resources
 function requireAuth() {
-    global $session;
+    global $session; // need both of these global $session calls?
     if (!isAuthenticated()) {
         global $session;
         $session->getFlashBag()->add('error', 'You must be logged in to access this resource');
