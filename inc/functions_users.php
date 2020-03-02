@@ -60,11 +60,11 @@ function assignUserNewTasks() {
 
     if (isAuthenticated()) {
         $id = getAuthenticatedUser();
-        $user = findUserByuserId($id); 
+        //$user = findUserByUserId($id); 
 
         try {
             $query = $db->prepare('UPDATE tasks SET user_id = :userId WHERE user_id IS NULL');
-            $query->bindParam(':userId', $user['id']);
+            $query->bindParam(':userId', $id);
             $query->execute();
         } catch (\Exception $e) {
             throw $e;
@@ -77,11 +77,11 @@ function displayAllUserTasks() {
 
     if (isAuthenticated()) {
         $id = getAuthenticatedUser();
-        $user = findUserByuserId($id);        
+        //$user = findUserByUserId($id);        
       
         try {
             $query = $db->prepare('SELECT * FROM tasks WHERE user_id = :userId');
-            $query->bindParam(':userId', $user['id']);
+            $query->bindParam(':userId', $id);
             $query->execute();
             $results = $query->fetchAll(PDO::FETCH_ASSOC);
         } catch (\Exception $e) {
@@ -91,16 +91,16 @@ function displayAllUserTasks() {
     }
 }
 // Display completed tasks assiged to logged in user
-function displayCompletedlUserTasks() {
+function displayCompletedUserTasks() {
     global $db;
 
     if (isAuthenticated()) {
         $id = getAuthenticatedUser();
-        $user = findUserByuserId($id);        
+        //$user = findUserByUserId($id);        
       
         try {
             $query = $db->prepare('SELECT * FROM tasks WHERE user_id = :userId AND status = "1" ');
-            $query->bindParam(':userId', $user['id']);
+            $query->bindParam(':userId', $id);
             $query->execute();
             $results = $query->fetchAll(PDO::FETCH_ASSOC);
         } catch (\Exception $e) {
@@ -110,21 +110,21 @@ function displayCompletedlUserTasks() {
     }
 }
 // Display completed tasks assiged to logged in user
-function displayIncompletelUserTasks() {
+function displayIncompleteUserTasks() {
     global $db;
 
-    if (isAuthenticated()) {
+    // if (isAuthenticated()) {
         $id = getAuthenticatedUser();
-        $user = findUserByuserId($id);        
+        //$user = findUserByUserId($id);        
       
         try {
             $query = $db->prepare('SELECT * FROM tasks WHERE user_id = :userId AND status = "0" ');
-            $query->bindParam(':userId', $user['id']);
+            $query->bindParam(':userId', $id);
             $query->execute();
             $results = $query->fetchAll(PDO::FETCH_ASSOC);
         } catch (\Exception $e) {
             return false;
         }
        return $results;
-    }
+    // }
 }
