@@ -26,9 +26,20 @@ function saveUserData($user) {
     $session->set('auth_user_id', (int) $user['id']);
     
     $session->getFlashBag()->add('success', "Successfully Logged In"); 
+    $data = ['auth_user_id' => (int) $user['id'] ];
     $cookie = new Symfony\Component\HttpFoundation\Cookie(
-        'auth_user_id', 
-        (int) $user['id']
+        'auth', 
+        json_encode($data)
     );
+    // $cookie = new Symfony\Component\HttpFoundation\Cookie(
+    //     'auth_user_id', 
+    //     (int) $user['id']
+    // );
     redirect('/', ['cookies' => [$cookie] ]);
+}
+function setAuthCookie() {
+    $cookie = new Symfony\Component\HttpFoundation\Cookie(
+        'auth', 
+        json_encode($data)
+    );
 }
