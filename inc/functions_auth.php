@@ -27,4 +27,5 @@ function saveUserData($user) {
     
     $session->getFlashBag()->add('success', "Successfully Logged In"); 
     $cookie = new Symfony\Component\HttpFoundation\Cookie('auth_user_id', (int) $user['id']);
+    redirect('/', $cookie);
 }
