@@ -14,6 +14,10 @@ function requireAuth() {
         redirect("/login.php");
     }
 }
+function getAuthenticatedUser() {
+    global $session;
+    $session->get('auth_user_id');
+}
 
 // Save user session data
 function saveUserData($user) {
