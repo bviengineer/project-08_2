@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__.'/../inc/bootstrap.php';
+require __DIR__.'/../inc/bootstrap.php';
 
 $username = request()->get('username');
 $password = request()->get('password');
@@ -25,7 +25,7 @@ if (!empty($user)) {
 $user = createNewUser($username, $hashedPwd);
 
 // Registration success and logged in confirmation message
-$session->getFlashBag()->add('success', "Account Created!");
+$session->getFlashBag()->add('success', "Account Created");
 
 // Redirect user to the home page after creating user 
 redirect('/');
