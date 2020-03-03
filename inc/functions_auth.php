@@ -36,7 +36,8 @@ function saveUserData($user) {
         'nbf' => time(),
     ], getenv('SECRET_KEY'), 'HS256'); 
     
-    $cookie = setAuthCookie(json_encode($data), $expTime);
+    $cookie = setAuthCookie($jwt, $expTime);
+    // $cookie = setAuthCookie(json_encode($data, $expTime);
     // $cookie = new Symfony\Component\HttpFoundation\Cookie(
     //     'auth_user_id', 
     //     (int) $user['id']
