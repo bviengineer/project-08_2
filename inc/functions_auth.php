@@ -7,7 +7,7 @@ function isAuthenticated() {
 }
 // Require a user to authenticate in order to use certain resources
 function requireAuth() {
-    global $session; // need both of these global $session calls?
+    //global $session; // need both of these global $session calls?
     if (!isAuthenticated()) {
         global $session;
         $session->getFlashBag()->add('error', 'You must be logged in to access this resource');
@@ -37,6 +37,7 @@ function saveUserData($user) {
     ], getenv('SECRET_KEY'), 'HS256'); 
     
     $cookie = setAuthCookie($jwt, $expTime);
+    // $data = ['auth_user_id' => (int) $user['id'] ];
     // $cookie = setAuthCookie(json_encode($data, $expTime);
     // $cookie = new Symfony\Component\HttpFoundation\Cookie(
     //     'auth_user_id', 
@@ -59,9 +60,22 @@ function setAuthCookie($data, $expTime) {
 }
 // Decoding of cookie
 function decodeAuthCookie($prop = null) {
-    $cookie = json_decode(request()->cookies->get('auth'));
+    try {
+        Firebase\JWT\JWT::$leeway=1;
+        $cookie = Firebase\JWT\JWT::decode(
+            request()->cookies->get('auth'),
+            getenv('SECRET_KEY'),
+            [HS256]
+        );
+    } catch (Exception $e) {
+        return false;
+    }
+    // $cookie = json_decode(request()->cookies->get('auth'));
     if ($prop === null) {
         return $cookie;
+    }
+    if ($prop == 'auth_user_id') {
+        $prop = 'sub';
     }
     if (!isset($cookie->prop)) {
         return false;
