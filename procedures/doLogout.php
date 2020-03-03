@@ -6,5 +6,7 @@ require __DIR__.'/../inc/bootstrap.php';
 
 // Log out confirmation message
 $session->getFlashBag()->add('success', "Successfully Logged Out");
+
+// Expired cookie
 $cookie = setAuthCookie('expired', 1);
 redirect('/login.php', ['cookies' => [$cookie] ]);
