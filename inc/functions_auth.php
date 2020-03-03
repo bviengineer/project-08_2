@@ -37,8 +37,9 @@ function saveUserData($user) {
     ], getenv('SECRET_KEY'), 'HS256'); 
     
     $cookie = setAuthCookie($jwt, $expTime);
-    // $data = ['auth_user_id' => (int) $user['id'] ];
-    // $cookie = setAuthCookie(json_encode($data, $expTime);
+    
+    //$cookie = setAuthCookie($data, $expTime); 
+    //$data = ['auth_user_id' => (int) $user['id'] ];
     // $cookie = new Symfony\Component\HttpFoundation\Cookie(
     //     'auth_user_id', 
     //     (int) $user['id']
@@ -49,7 +50,7 @@ function saveUserData($user) {
 function setAuthCookie($data, $expTime) {
     $cookie = new Symfony\Component\HttpFoundation\Cookie(
         'auth', 
-        json_encode($data),
+        $data,
         $expTime,
         '/',
         'localhost',
@@ -65,12 +66,12 @@ function decodeAuthCookie($prop = null) {
         $cookie = Firebase\JWT\JWT::decode(
             request()->cookies->get('auth'),
             getenv('SECRET_KEY'),
-            [HS256]
+            ['HS256']
         );
     } catch (Exception $e) {
         return false;
     }
-    // $cookie = json_decode(request()->cookies->get('auth'));
+    $cookie = json_decode(request()->cookies->get('auth'));
     if ($prop === null) {
         return $cookie;
     }
