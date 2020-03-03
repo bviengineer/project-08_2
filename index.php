@@ -8,16 +8,6 @@ include 'inc/header.php';
 ?>
     <div class="col-container actions-container">
       <h1>Welcome</h1>
-      <?php 
-        echo "<pre>";
-        // $test = json_decode(decodeAuthCookie(), true);
-        // $test = decodeAuthCookie();
-        // $test = saveUserData($user);
-        // var_dump($test['auth_user_id']);
-        // var_dump(json_encode(getAuthenticatedUser())); 
-        // var_dump(findUserByUsername(request()->get('username')));
-        echo "</pre>";
-      ?>
       <p class="actions-copy">What would you like to do today?</p>
       <div class="actions-wrapper">
       <?php if (isAuthenticated()) : ?>
