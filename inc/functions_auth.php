@@ -5,7 +5,6 @@ function isAuthenticated() {
     // return $session->get('auth_logged_in', false);
     return decodeAuthCookie();
 }
-
 // Require a user to authenticate in order to use certain resources
 function requireAuth() {
     global $session; // need both of these global $session calls?
@@ -21,7 +20,6 @@ function getAuthenticatedUser() {
     // return findUserByUserId($session->get('auth_user_id'));
     return findUserByUserId(decodeAuthCookie('auth_user_id'));
 }
-
 // Save user session data
 function saveUserData($user) {
     global $session;
