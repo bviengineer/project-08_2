@@ -71,7 +71,7 @@ function decodeAuthCookie($prop = null) {
     } catch (Exception $e) {
         return false;
     }
-    $cookie = json_decode(request()->cookies->get('auth'));
+    //$cookie = json_decode(request()->cookies->get('auth'));
     if ($prop === null) {
         return $cookie;
     }
