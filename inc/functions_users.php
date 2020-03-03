@@ -59,10 +59,14 @@ function assignUserNewTasks() {
     global $db;
 
     if (isAuthenticated()) {
-        $id = getAuthenticatedUser(); 
+        // $id = getAuthenticatedUser(); 
+
+        $user = get_object_vars(decodeAuthCookie());
+        $id = $user['sub'];
+
         try {
             $query = $db->prepare('UPDATE tasks SET user_id = :userId WHERE user_id IS NULL');
-            $query->bindParam(':userId', $id['id']);
+            $query->bindParam(':userId', $id);
             $query->execute();
         } catch (\Exception $e) {
             throw $e;
@@ -74,9 +78,11 @@ function displayAllUserTasks() {
     global $db;
 
    if (isAuthenticated()) {
-        //$id = getAuthenticatedUser();   
-        $user = json_decode(decodeAuthCookie(), true);
-        $id = $user['auth_user_id'];
+        //$id = getAuthenticatedUser();
+
+        $user = get_object_vars(decodeAuthCookie());
+        $id = $user['sub'];
+        
         try {
             $query = $db->prepare('SELECT * FROM tasks WHERE user_id = :userId');
             $query->bindParam(':userId', $id);
@@ -93,10 +99,13 @@ function displayCompletedUserTasks() {
     global $db;
 
     if (isAuthenticated()) {
-        $id = getAuthenticatedUser();        
+        // $id = getAuthenticatedUser();        
+        $user = get_object_vars(decodeAuthCookie());
+        $id = $user['sub'];
+
         try {
             $query = $db->prepare('SELECT * FROM tasks WHERE user_id = :userId AND status = "1" ');
-            $query->bindParam(':userId', $id['id']);
+            $query->bindParam(':userId', $user['sub']);
             $query->execute();
             $results = $query->fetchAll(PDO::FETCH_ASSOC);
         } catch (\Exception $e) {
@@ -110,10 +119,14 @@ function displayIncompleteUserTasks() {
     global $db;
 
     if (isAuthenticated()) {
-        $id = getAuthenticatedUser();   
+        // $id = getAuthenticatedUser();   
+
+        $user = get_object_vars(decodeAuthCookie());
+        $id = $user['sub'];
+        
         try {
             $query = $db->prepare('SELECT * FROM tasks WHERE user_id = :userId AND status = "0" ');
-            $query->bindParam(':userId', $id['id']);
+            $query->bindParam(':userId', $user['sub']);
             $query->execute();
             $results = $query->fetchAll(PDO::FETCH_ASSOC);
         } catch (\Exception $e) {
