@@ -74,10 +74,12 @@ function displayAllUserTasks() {
     global $db;
 
    if (isAuthenticated()) {
-        $id = getAuthenticatedUser();   
+        //$id = getAuthenticatedUser();   
+        $user = json_decode(decodeAuthCookie(), true);
+        $id = $user['auth_user_id'];
         try {
             $query = $db->prepare('SELECT * FROM tasks WHERE user_id = :userId');
-            $query->bindParam(':userId', $id['id']);
+            $query->bindParam(':userId', $id);
             $query->execute();
             $results = $query->fetchAll(PDO::FETCH_ASSOC);
         } catch (\Exception $e) {
