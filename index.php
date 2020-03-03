@@ -10,8 +10,10 @@ include 'inc/header.php';
       <h1>Welcome</h1>
       <?php 
         echo "<pre>";
-        $test = json_decode(decodeAuthCookie(), true);
-        var_dump($test['auth_user_id']);
+        // $test = json_decode(decodeAuthCookie(), true);
+        // $test = decodeAuthCookie();
+        // $test = saveUserData($user);
+        // var_dump($test['auth_user_id']);
         // var_dump(json_encode(getAuthenticatedUser())); 
         // var_dump(findUserByUsername(request()->get('username')));
         echo "</pre>";
