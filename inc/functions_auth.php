@@ -26,9 +26,16 @@ function saveUserData($user) {
     // $session->set('auth_logged_in', true);
     // $session->set('auth_user_id', (int) $user['id']);
     
-    $session->getFlashBag()->add('success', "Successfully Logged In"); 
-    $data = ['auth_user_id' => (int) $user['id'] ];
+    $session->getFlashBag()->add('success', "Successfully Logged In");
     $expTime = time() + 3600;
+    $jwt = Firebase\JWT\JWT::encode([
+        'iss' => request()->getBaseUrl(),
+        'sub' => (int) $user['id'],
+        'exp' => $expTime,
+        'iat' => time(),
+        'nbf' => time(),
+    ], getenv('SECRET_KEY'), 'HS256'); 
+    
     $cookie = setAuthCookie(json_encode($data), $expTime);
     // $cookie = new Symfony\Component\HttpFoundation\Cookie(
     //     'auth_user_id', 
