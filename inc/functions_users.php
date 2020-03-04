@@ -29,7 +29,6 @@ function createNewUser($username, $password) {
 // Find a user by username
 function findUserByUserId($id) {
     global $db;
-
     try {
         $query = $db->prepare('SELECT * from users where id = :id');
         $query->bindParam(':id', $id);
@@ -43,7 +42,6 @@ function findUserByUserId($id) {
 // Update a user's password
 function updatePassword($password, $username) {
     global $db;
-
     try {
         $query = $db->prepare('UPDATE users SET password = :password WHERE username = :username');
         $query->bindParam(':password', $password);
@@ -57,10 +55,7 @@ function updatePassword($password, $username) {
 // Assign new task(s) to logged in user
 function assignUserNewTasks() {
     global $db;
-
     if (isAuthenticated()) {
-        // $id = getAuthenticatedUser(); 
-
         $user = get_object_vars(decodeAuthCookie());
         $id = $user['sub'];
 
@@ -76,13 +71,9 @@ function assignUserNewTasks() {
 // Display completed and incompleted tasks assiged to logged in user
 function displayAllUserTasks() {
     global $db;
-
    if (isAuthenticated()) {
-        //$id = getAuthenticatedUser();
-
         $user = get_object_vars(decodeAuthCookie());
         $id = $user['sub'];
-        
         try {
             $query = $db->prepare('SELECT * FROM tasks WHERE user_id = :userId');
             $query->bindParam(':userId', $id);
@@ -97,9 +88,7 @@ function displayAllUserTasks() {
 // Display completed tasks assiged to logged in user
 function displayCompletedUserTasks() {
     global $db;
-
-    if (isAuthenticated()) {
-        // $id = getAuthenticatedUser();        
+    if (isAuthenticated()) {   
         $user = get_object_vars(decodeAuthCookie()); 
         /* NOTE to future self:
         * $id = $user['sub'] & $user['sub']
@@ -122,12 +111,8 @@ function displayCompletedUserTasks() {
 // Display completed tasks assiged to logged in user
 function displayIncompleteUserTasks() {
     global $db;
-
-    if (isAuthenticated()) {
-        // $id = getAuthenticatedUser();   
-
+    if (isAuthenticated()) {   
         $user = get_object_vars(decodeAuthCookie());
-        
         try {
             $query = $db->prepare('SELECT * FROM tasks WHERE user_id = :userId AND status = "0" ');
             $query->bindParam(':userId', $user['sub']);
