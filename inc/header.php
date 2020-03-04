@@ -5,6 +5,7 @@
   <link rel="icon" href="./favicon.ico" type="image/x-icon">
   <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="css/style.css" type="text/css">
+    <link rel="stylesheet" href="css/custom_style.css" type="text/css">
 
 </head>
 <body>

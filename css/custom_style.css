@@ -1,0 +1,19 @@
+body, .col-container {
+    background-color: rgb(240, 234, 234);
+}
+.col-container {
+    opacity: 0.9;
+}
+.logo-name {
+    color: rgb(102, 35, 94);
+}
+.nav-link {
+    color: #f7b258;
+    font-weight: bold;
+}
+.logo-name:hover {
+    color: white;
+}
+.logo-icon {
+    background-color: #f7b258;
+}
