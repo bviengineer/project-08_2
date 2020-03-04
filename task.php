@@ -31,7 +31,7 @@ include 'inc/header.php';
                 <table>
                     <tr>
                         <th><label for="task">Task<span class="required">*</span></label></th>
-                        <td><input type="text" id="task" name="task" value="<?php echo htmlspecialchars($task); ?>" /></td>
+                        <td><input type="text" id="task" name="task" value="<?php if(isset($task)) {echo htmlspecialchars($task); } ?>" /></td>
                     </tr>
                    </table>
                 <?php
