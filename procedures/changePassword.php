@@ -31,7 +31,7 @@ if (!password_verify($currentPwd, $user['password'])) {
     redirect('/account.php');
 }
 
-// Hashes the updated password
+// Hashes the new password & update the database
 $updatedPwd = updatePassword(password_hash($newPwd, PASSWORD_DEFAULT), $user['username']);
 
 // If password could not be updated
