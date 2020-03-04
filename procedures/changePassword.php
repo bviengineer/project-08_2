@@ -7,17 +7,16 @@ $newPwd = request()->get('password');
 $confirmedPwd = request()->get('confirm_password');
 
 
-// Verifies whether new password matches the confirmed version of the new password
+// Verifies whether new the pwd matches the confirmed pwd
 if ($newPwd != $confirmedPwd) {
     $session->getFlashBag()->add('error', 'New passwords do not match, please try again');
     redirect('/account.php');
 }
 
-// Get the user attempting to change their password
-// $user = getAuthenticatedUser();
+// Get the info for the user attempting to change their password
 $loggedInUser = get_object_vars(decodeAuthCookie()); // get user object
-$id = $loggedInUser['sub']; // returns Id of logged in user
-$user = findUserByUserId($id); // grabs user from dbase based on user id
+$id = $loggedInUser['sub']; // returns id of logged in user
+$user = findUserByUserId($id); // get user from dbase by their id
 
 // If a username could not be found 
 if (empty($user)) {
