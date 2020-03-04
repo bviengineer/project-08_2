@@ -100,9 +100,14 @@ function displayCompletedUserTasks() {
 
     if (isAuthenticated()) {
         // $id = getAuthenticatedUser();        
-        $user = get_object_vars(decodeAuthCookie());
-        $id = $user['sub'];
-
+        $user = get_object_vars(decodeAuthCookie()); 
+        /* NOTE to future self:
+        * $id = $user['sub'] & $user['sub']
+        * is used interchangebly in the bindParams of the last 4 functions
+        * getting all, completed and incomplete tasks, because they return
+        * the same result and to to demonstrate different ways to obtain 
+        * the user id or the same result 
+        */ 
         try {
             $query = $db->prepare('SELECT * FROM tasks WHERE user_id = :userId AND status = "1" ');
             $query->bindParam(':userId', $user['sub']);
@@ -122,7 +127,6 @@ function displayIncompleteUserTasks() {
         // $id = getAuthenticatedUser();   
 
         $user = get_object_vars(decodeAuthCookie());
-        $id = $user['sub'];
         
         try {
             $query = $db->prepare('SELECT * FROM tasks WHERE user_id = :userId AND status = "0" ');
