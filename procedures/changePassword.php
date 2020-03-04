@@ -14,7 +14,10 @@ if ($newPwd != $confirmedPwd) {
 }
 
 // Get the user attempting to change their password
-$user = getAuthenticatedUser();
+// $user = getAuthenticatedUser();
+$loggedInUser = get_object_vars(decodeAuthCookie()); // get user object
+$id = $loggedInUser['sub']; // returns Id of logged in user
+$user = findUserByUserId($id); // grabs user from dbase based on user id
 
 // If a username could not be found 
 if (empty($user)) {
