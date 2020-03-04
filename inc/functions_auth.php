@@ -78,8 +78,8 @@ function decodeAuthCookie($prop = null) {
     if ($prop == 'auth_user_id') {
         $prop = 'sub';
     }
-    if (!isset($cookie->prop)) {
+    if (!isset($cookie->$prop)) {
         return false;
     }
-    return $cookie->prop;
+    return $cookie->$prop;
 }
